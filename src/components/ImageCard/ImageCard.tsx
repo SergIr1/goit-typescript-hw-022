@@ -1,15 +1,19 @@
+import { Photo } from '../App/App.types';
 import css from './ImageCard.module.css';
 
-export default function ImageCard({
-  data: {
+interface ImageCardProps {
+  data: Photo;
+  onImageClick: (imageUrl: Photo) => void;
+}
+
+export default function ImageCard({ data, onImageClick }: ImageCardProps) {
+  const {
     urls: { small, regular },
     slug,
     likes,
     user,
     description,
-  },
-  onImageClick,
-}) {
+  } = data;
   return (
     <>
       <div className={css.container}>
@@ -19,7 +23,7 @@ export default function ImageCard({
           alt={slug}
           width={'400px'}
           height={'260px'}
-          onClick={() => onImageClick(regular)}
+          onClick={() => onImageClick(data)}
         />
         <div className={css.info}>
           <h2 className={css.title}>

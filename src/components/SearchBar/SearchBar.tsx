@@ -2,10 +2,18 @@ import { Field, Form, Formik } from 'formik';
 import toast from 'react-hot-toast';
 import css from './SearchBar.module.css';
 
-export default function SearchBar({ onSubmit }) {
+interface SearchBarProps {
+  onSubmit: (topic: string) => void;
+}
+
+interface FormValues {
+  topic: string;
+}
+
+export default function SearchBar({ onSubmit }: SearchBarProps) {
   return (
     <header className={css.header}>
-      <Formik
+      <Formik<FormValues>
         initialValues={{ topic: '' }}
         onSubmit={(values, actions) => {
           if (values.topic.trim() === '') {

@@ -1,6 +1,16 @@
 import axios from 'axios';
+import { Photo } from '../components/App/App.types';
 
-export const fetchImage = async (topic, currentPage) => {
+interface SearchResponse {
+  page: number;
+  per_page: number;
+  results: Photo[];
+}
+
+export const fetchImage = async (
+  topic: string,
+  currentPage: number
+): Promise<Photo[]> => {
   const axiosParams = {
     params: {
       query: topic,
@@ -9,8 +19,8 @@ export const fetchImage = async (topic, currentPage) => {
       per_page: 15,
     },
   };
-  console.log(axiosParams);
-  const response = await axios.get(
+  // console.log(axiosParams);
+  const response = await axios.get<SearchResponse>(
     `https://api.unsplash.com/search/photos`,
     axiosParams
   );
